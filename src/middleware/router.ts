@@ -12,16 +12,16 @@ router.get('/', async (ctx: Koa.Context) => {
 });
 
 router
-  .get('/user', auth, AuthController.user)
+  .get('/user', AuthController.user)
   .post('/login', AuthController.login)
   .post('/register', AuthController.register);
 
-router.get('/nytimes-bestsellers', auth, NYTimesController.bestSellers);
+router.get('/nytimes-bestsellers', NYTimesController.bestSellers);
 
 router
-  .get('/booklist', auth, ListController.getAllBooksByUserId)
-  .post('/booklist', auth, ListController.addBookToList)
-  .put('/booklist/:bookId', auth, ListController.updateBookOnList)
-  .delete('/booklist/:bookId', auth, ListController.deleteBookOnList);
+  .get('/booklist', ListController.getAllBooksByUserId)
+  .post('/booklist', ListController.addBookToList)
+  .put('/booklist/:bookId', ListController.updateBookOnList)
+  .delete('/booklist/:bookId', ListController.deleteBookOnList);
 
 export default router;
