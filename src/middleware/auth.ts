@@ -10,7 +10,8 @@ const auth = async (ctx: Koa.Context, next: Function) => {
   if (!ctx.request.header.authorization) {
     return ctx.throw(401, 'No authorization header');
   }
-  // Removing 'Bearer ' portion of header auth
+  
+  // Remove 'Bearer ' portion of header auth
   let token = ctx.header?.authorization?.substring(7);
 
   if (!token) {
@@ -20,6 +21,7 @@ const auth = async (ctx: Koa.Context, next: Function) => {
     };
     return;
   }
+
   try {
     const decoded = (await jwt.verify(
       token,

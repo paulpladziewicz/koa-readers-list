@@ -12,7 +12,7 @@ router.get('/', async (ctx: Koa.Context) => {
 });
 
 router
-  .get('/user', AuthController.user)
+  .get('/user', auth, AuthController.user)
   .post('/login', AuthController.login)
   .post('/register', AuthController.register);
 
