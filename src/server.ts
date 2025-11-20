@@ -7,17 +7,23 @@ import koaBody from 'koa-body';
 import connectDB from './config/db';
 import router from './middleware/router';
 
+const PORT = process.env.PORT || 5003;
+const Environments = {
+  DEVELOPMENT: 'development',
+  PROD: 'prod'
+}
+
 const app = new Koa();
 app.use(json());
 app.use(koaBody());
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === Environments.DEVELOPMENT) {
   app.use(cors({ origin: '*' }));
 }
 
 connectDB();
 
-// Fallback Error Handling
+// App Fallback Global Error Handling
 app.use(async (ctx: Koa.Context, next: Function) => {
   try {
     await next();
@@ -31,6 +37,6 @@ app.use(async (ctx: Koa.Context, next: Function) => {
 
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(process.env.PORT || 5003, () =>
-  console.log('Server running on port 5003.')
+app.listen(PORT, () =>
+  console.log(`Server running on port ${PORT}...`)
 );
